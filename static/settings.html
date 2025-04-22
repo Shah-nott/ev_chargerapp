@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <title>Settings</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Settings</h2>
+        
+        <h3>EV Charger Nickname</h3>
+        <input type="text" id="charger-nickname" placeholder="Enter Charger Nickname">
+        <button onclick="updateNickname()">Update Nickname</button>
+
+        <h3>Line Type (Bluetooth/Wi-Fi)</h3>
+        <select id="line-type">
+            <option value="bluetooth">Bluetooth</option>
+            <option value="wifi">Wi-Fi</option>
+        </select>
+        <button onclick="setNetwork()">Set Network</button>
+
+        <h3>Max Current</h3>
+        <input type="number" id="max-current" placeholder="Enter Maximum Current (A)">
+        <button onclick="setMaxCurrent()">Set Max Current</button>
+
+        <h3>Charge Mode Options</h3>
+        <select id="charge-mode">
+            <option value="eco">Eco</option>
+            <option value="fast">Fast</option>
+            <option value="green">Green</option>
+        </select>
+        <button onclick="setChargeMode()">Set Charge Mode</button>
+
+        <h3>Load Balancing</h3>
+        <input type="checkbox" id="load-balance"> Enable Load Balancing
+        <button onclick="setLoadBalancing()">Set Load Balancing</button>
+
+        <h3>LED Brightness</h3>
+        <input type="number" id="led-brightness" placeholder="Enter LED Brightness (0-100)">
+        <button onclick="setLedBrightness()">Set LED Brightness</button>
+
+        <h3>Locking Mode</h3>
+        <select id="locking-mode">
+            <option value="locked">Locked</option>
+            <option value="unlocked">Unlocked</option>
+        </select>
+        <button onclick="setLockingMode()">Set Locking Mode</button>
+
+        <h3>Family Sharing</h3>
+        <input type="text" id="family-member-id" placeholder="Enter Family Member ID">
+        <button onclick="addFamilySharing()">Share Charger</button>
+    </div>
+    <script src="/static/js/settings.js"></script>
+</body>
+</html>

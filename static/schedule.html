@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <title>Schedules</title>
+</head>
+<body>
+    <div class="container">
+        <h2>📅 Manage Schedules</h2>
+
+        <!-- Current Schedules Section -->
+        <section class="schedule-section">
+            <h3>📋 Current Schedules</h3>
+            <ul id="schedule-list" class="schedule-list">
+                <li>No schedules available.</li> <!-- Placeholder, replaced dynamically -->
+            </ul>
+        </section>
+
+        <!-- Add New Schedule Section -->
+        <section class="add-schedule-section">
+            <h3>➕ Add New Schedule</h3>
+            <form id="add-schedule-form">
+                <div class="form-group">
+                    <label for="start-time">🕒 Start Time:</label>
+                    <input type="datetime-local" id="start-time" name="start-time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="end-time">⏳ End Time:</label>
+                    <input type="datetime-local" id="end-time" name="end-time" required>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label for="recurring">🔄 Recurring:</label>
+                    <input type="checkbox" id="recurring" name="recurring">
+                </div>
+
+                <button type="submit" class="submit-btn">✅ Add Schedule</button>
+            </form>
+        </section>
+    </div>
+    <script src="/static/js/schedule.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <title>Home</title>
+</head>
+<body>
+    <div class="container">
+        <h2>🔋 EV Charger Dashboard</h2>
+	
+	<!-- Dynamic Welcome -->
+        <p id="welcome-msg" class="highlight">👋 Loading user info...</p>
+	<div id="user-info" class="user-banner">Loading user info...</div>
+
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="/add_device">➕ Add Device</a></li>
+                <li><a href="/records">📊 Records</a></li>
+                <li><a href="/schedule">📅 Schedule</a></li>
+                <li><a href="/settings">⚙️ Settings</a></li>
+                <li><a href="/logout" class="logout-btn">🚪 Log Out</a></li>
+            </ul>
+        </nav>
+        <section class="status-section">
+            <h3>⚡ Charger Status</h3>
+            <div class="status-card">
+                <p>🔹 Device Name: <span class="highlight" id="device-name">N/A</span></p>
+                <p>🔌 Charging: <span class="status-indicator" id="charging-status">❌ No</span></p>
+                <p>⚡ Charge Speed: <span class="highlight" id="charge-speed">N/A</span></p>
+                <p>💰 Amount Spent: <span class="highlight" id="amount-spent">N/A</span></p>
+            </div>
+        </section>
+
+        <!-- Charging Control Buttons -->
+        <div class="button-group">
+            <button id="start-charging" class="start-btn">▶️ Start Charging</button>
+            <button id="stop-charging" class="stop-btn">⏹️ Stop Charging</button>
+        </div>
+
+    </div>
+    <script>
+        // Fetch user session and update welcome message
+        fetch("/api/home")
+            .then(res => {
+                if (!res.ok) {
+                    window.location.href = "/login";
+                    return;
+                }
+                return res.json();
+            })
+            .then(data => {
+                document.getElementById("welcome-msg").textContent = `👋 Welcome, ${data.username}`;
+            })
+            .catch(() => {
+                window.location.href = "/login";
+            });
+    </script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

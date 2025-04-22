@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <title>Add Device</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Scan and Add Device</h2>
+        <button onclick="scanDevices()">Scan</button>
+        <ul id="device-list"></ul>
+        <h3>Last Connected Device: <span id="last-connected">None</span></h3>
+        <div id="connection-status"></div>
+        <div id="device-output" style="margin-top: 20px;"></div> <!-- Display received data -->
+    </div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

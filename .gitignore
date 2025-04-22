@@ -1,0 +1,17 @@
+# Rust/Cargo
+target/
+**/*.rs.bk
+Cargo.lock
+
+# IDE/project files
+.vscode/
+.idea/
+
+# AWS credentials, env files
+.env
+output.log
+error.log
+nohup.out
+
+# macOS
+.DS_Store

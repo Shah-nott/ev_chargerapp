@@ -1,0 +1,170 @@
+/* Import Google Font for better typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #e9f5f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Main container with shadow and rounded corners */
+.container {
+    max-width: 800px;
+    width: 90%;
+    background: #fff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+}
+
+/* Smooth hover effect for the container */
+.container:hover {
+    transform: translateY(-4px);
+}
+
+/* Improved heading styles */
+h2, h3 {
+    color: #2d8659;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* Input Fields with modern look */
+input[type="text"], input[type="password"], input[type="datetime-local"] {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    background: #f9f9f9;
+}
+
+/* Input field focus effect */
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="datetime-local"]:focus {
+    border-color: #2d8659;
+    outline: none;
+    box-shadow: 0 0 10px rgba(45, 140, 87, 0.3);
+}
+
+/* Primary Buttons */
+input[type="submit"], button {
+    background-color: #2d8659;
+    color: white;
+    padding: 14px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Button hover effect */
+input[type="submit"]:hover, button:hover {
+    background-color: #237045;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Stylish List Items */
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    background: #fdfdfd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+/* List hover effect */
+li:hover {
+    background-color: #e3f3eb;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+}
+
+/* Button inside list */
+li button {
+    width: auto;
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+/* Divider */
+hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 20px 0;
+}
+
+/* Success Message */
+.message {
+    margin-top: 20px;
+    padding: 14px;
+    background-color: #2d8659;
+    color: white;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+}
+
+.user-banner {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 25px;
+    }
+
+    input[type="text"], input[type="password"], input[type="datetime-local"] {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    input[type="submit"], button {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    li {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    li button {
+        width: 100%;
+        margin-top: 8px;
+    }
+}
