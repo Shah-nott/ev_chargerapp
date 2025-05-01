@@ -46,7 +46,7 @@
         fetch("/api/home")
             .then(res => {
                 if (!res.ok) {
-                    window.location.href = "/login";
+                    window.location.href = "/static/home.html";
                     return;
                 }
                 return res.json();
@@ -55,7 +55,7 @@
                 document.getElementById("welcome-msg").textContent = `👋 Welcome, ${data.username}`;
             })
             .catch(() => {
-                window.location.href = "/login";
+                window.location.href = "/static.home.html";
             });
     </script>
     <script src="/static/js/script.js"></script>

@@ -1,6 +1,8 @@
 // Updated JavaScript (script.js)
 document.addEventListener("DOMContentLoaded", function () {
     // Add event listener for scan button if available
+    const userBanner = document.getElementById("user-info");
+    
     const scanButton = document.getElementById("scan-button");
     if (scanButton) {
         scanButton.addEventListener("click", scanDevices);
@@ -29,21 +31,21 @@ document.addEventListener("DOMContentLoaded", function () {
     getChargerStatus();
     console.log("JavaScript loaded and DOM is ready!");
 
-    fetch("/api/home")
-    .then((res) => {
+    if (userBanner) {
+     fetch("/api/home")
+      .then(res => {
         if (!res.ok) {
-            throw new Error("Not logged in");
-        }
-        return res.json();
-    })
-    .then((user) => {
-        const userDiv = document.getElementById("user-info");
-        userDiv.innerText = `👋 Welcome, ${user.username}`;
-    })
-    .catch((err) => {
-        console.error("User fetch failed", err);
-        // Optional: window.location.href = "/login";
-    });
+            // not logged in? go to login form
+            window.location.href = "/login";
+            throw new Error("no session");
+           }
+           return res.json();
+          })
+          .then(data => {
+            userBanner.innerText = `👋 Welcome, ${data.username}`;
+         })
+          .catch(err => console.warn("session check failed:", err));
+      }
 
 
 });

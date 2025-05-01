@@ -82,7 +82,7 @@ pub async fn login_user(
             .is_ok() =>
         {
             session.insert("username", &u.username).unwrap();
-            HttpResponse::Found().append_header(("Location", "/home.html")).finish()
+            HttpResponse::Found().append_header(("Location", "/home")).finish()
         }
         Ok(Some(_))  => HttpResponse::Unauthorized().body("Invalid credentials"),
         Ok(None)     => HttpResponse::NotFound().body("User not found"),
@@ -92,6 +92,23 @@ pub async fn login_user(
 
 // ---------- Configure Routes ----------
 pub fn configure(cfg: &mut web::ServiceConfig) {
-    cfg.service(web::resource("/register").route(web::post().to(register_user)));
-    cfg.service(web::resource("/login").route(web::post().to(login_user)));
+    // ── Login ─────────────────────────────────────────────
+    cfg.service(
+      web::resource("/login")
+        .route(web::get().to(login_form))
+        .route(web::post().to(login_user))
+    );
+
+    // ── Register ──────────────────────────────────────────
+    cfg.service(
+      web::resource("/register")
+        .route(web::get().to(register_form))
+        .route(web::post().to(register_user))
+    );
+
+    // ── Logout ────────────────────────────────────────────
+    cfg.service(
+      web::resource("/logout")
+        .route(web::get().to(logout))
+    );
 }

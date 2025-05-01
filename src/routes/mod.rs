@@ -19,12 +19,8 @@ use crate::handlers::settings::{
 };
 
 pub fn init_routes(cfg: &mut web::ServiceConfig) {
-    // ── Authentication ─────────────────────────────────────────────────────────────
-    cfg.route("/login",    web::get().to(login_form))
-       .route("/register", web::get().to(register_form))
-       .route("/login",    web::post().to(login_user))
-       .route("/register", web::post().to(register_user))
-       .route("/logout",   web::get().to(logout));
+    auth::configure(cfg);
+
 
     // ── Static pages ───────────────────────────────────────────────────────────────
     cfg.route("/",      web::get().to(login_page))

@@ -22,6 +22,7 @@ async fn main() -> std::io::Result<()> {
     dotenv().ok(); // Load env vars from .env
 
     let db_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    let secret_key = Key::generate();
     let db_pool = PgPoolOptions::new()
         .max_connections(5)
         .connect(&db_url)
@@ -43,17 +44,29 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .app_data(web::Data::new(device_status.clone()))
             .app_data(web::Data::new(db_pool.clone()))
-	    .wrap(
+            .wrap(
                 SessionMiddleware::builder(
                     CookieSessionStore::default(),
-                    Key::generate()      // auto‑rotating secret
+                    secret_key.clone(),
                 )
-                .cookie_name("ev-session".to_string())
+                .cookie_name("ev-session".into())
+                .cookie_secure(true)
                 .build()
             )
             .configure(init_routes)
-	    .service(fs::Files::new("/static", "./static").show_files_listing())
-            })
+           // serve CSS
+           .service(
+               fs::Files::new("/static/css", "./static/css")
+                   .show_files_listing()
+                   .use_last_modified(true)
+           )
+           // serve JS
+           .service(
+               fs::Files::new("/static/js", "./static/js")
+                   .show_files_listing()
+                   .use_last_modified(true)
+           )
+    })                          // ← closes the closure you passed to HttpServer::new
     .bind("0.0.0.0:8080")?
     .run()
     .await

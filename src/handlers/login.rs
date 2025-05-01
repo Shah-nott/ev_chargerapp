@@ -4,5 +4,5 @@ use actix_web::{Responder};
 
 
 pub async fn login_page() -> impl Responder {
-    NamedFile::open("./static/login.html")
+    NamedFile::open("/login")
 }

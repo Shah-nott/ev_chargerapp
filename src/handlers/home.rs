@@ -21,42 +21,42 @@ pub struct UserResponse {
 }
 
 
-pub async fn home_page(
-    session: Session,
-    req:     HttpRequest,
-) -> impl Responder {
-    if session.get::<String>("username").unwrap().is_none() {
-        return HttpResponse::Found().append_header(("Location", "/login")).finish();
-    }
-    NamedFile::open("./static/home.html")
-        .map(|f| f.into_response(&req))
-        .unwrap_or_else(|_| HttpResponse::NotFound().body("Home not found"))
-}
-
-
-
-pub async fn home_data(
-    session: Session,
-    db:      web::Data<PgPool>,
-) -> impl Responder {
-    if let Some(user) = session.get::<String>("username").unwrap() {
-        let rec = sqlx::query!(
-            "SELECT username, email FROM users WHERE username = $1",
-            user
-        )
-        .fetch_one(db.get_ref()).await;
-
-        match rec {
-            Ok(u) => HttpResponse::Ok().json(UserResponse {
-                username: u.username,
-                email:    u.email,
-            }),
-            Err(_) => HttpResponse::InternalServerError().body("Failed to load user data"),
+pub async fn home_page(session: Session, req: HttpRequest)
+    -> actix_web::Result<HttpResponse>
+{
+    match session.get::<String>("username") {
+        Ok(Some(_username)) => {
+            // logged in: serve home.html
+            let file = NamedFile::open("./static/home.html")?;
+            Ok(file.into_response(&req))
         }
-    } else {
-        HttpResponse::Unauthorized().body("Not logged in")
+        _ => {
+            // no session or error: bounce to /login
+            Ok(HttpResponse::Found()
+                .append_header(("Location", "/login"))
+                .finish())
+        }
     }
 }
+
+
+
+
+pub async fn home_data(session: Session, db: web::Data<PgPool>) -> impl Responder {
+    match session.get::<String>("username") {
+        Ok(Some(username)) => {
+            let row = sqlx::query!("SELECT username, email FROM users WHERE username = $1", username)
+                .fetch_one(db.get_ref())
+                .await;
+            match row {
+                Ok(u) => HttpResponse::Ok().json(UserResponse { username: u.username, email: u.email }),
+                Err(_) => HttpResponse::InternalServerError().body("DB error"),
+            }
+        }
+        _ => HttpResponse::Unauthorized().body("Not logged in"),
+    }
+}
+
 
 // Query current charger status from the backend API
 pub async fn get_charger_status(data: web::Data<SharedState>) -> impl Responder {
